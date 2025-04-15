@@ -10,10 +10,11 @@ static class Program
     {
         ApplicationConfiguration.Initialize();
         Application.SetCompatibleTextRenderingDefault(false);
-        // Show Admin Setup Form
-        Application.Run(new AdminSetupForm());
+        if (!Auth.IsAdminSetUp())
+        {
+            Application.Run(new AdminSetupForm());
+        }
 
-        // Show Login Form
         Application.Run(new LoginForm());
     }
 }

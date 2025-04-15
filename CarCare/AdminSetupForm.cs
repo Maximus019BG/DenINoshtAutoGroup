@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.IO;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace CarCare
@@ -16,75 +16,87 @@ namespace CarCare
 
         private void InitializeComponent()
         {
-            this.labelUsername = new Label();
-            this.labelPassword = new Label();
-            this.textBoxUsername = new TextBox();
-            this.textBoxPassword = new TextBox();
-            this.buttonSave = new Button();
-            this.SuspendLayout();
-            // 
-            // AdminSetupForm
-            // 
-            this.BackColor = Color.FromArgb(30, 30, 30);
-            this.ClientSize = new Size(300, 500);
-            this.Controls.Add(this.labelUsername);
-            this.Controls.Add(this.labelPassword);
-            this.Controls.Add(this.textBoxUsername);
-            this.Controls.Add(this.textBoxPassword);
-            this.Controls.Add(this.buttonSave);
-            this.Text = "Admin Setup";
-            this.FormBorderStyle = FormBorderStyle.None;
-            this.ResumeLayout(false);
-            // 
-            // labelUsername
-            // 
-            this.labelUsername.Text = "Username:";
-            this.labelUsername.ForeColor = Color.White;
-            this.labelUsername.Location = new Point(20, 30);
-            this.labelUsername.AutoSize = true;
-            // 
-            // textBoxUsername
-            // 
-            this.textBoxUsername.Location = new Point(20, 60);
-            this.textBoxUsername.Width = 260;
-            this.textBoxUsername.BackColor = Color.FromArgb(50, 50, 50);
-            this.textBoxUsername.ForeColor = Color.White;
-            // 
-            // labelPassword
-            // 
-            this.labelPassword.Text = "Password:";
-            this.labelPassword.ForeColor = Color.White;
-            this.labelPassword.Location = new Point(20, 120);
-            this.labelPassword.AutoSize = true;
-            // 
-            // textBoxPassword
-            // 
-            this.textBoxPassword.Location = new Point(20, 150);
-            this.textBoxPassword.Width = 260;
-            this.textBoxPassword.BackColor = Color.FromArgb(50, 50, 50);
-            this.textBoxPassword.ForeColor = Color.White;
-            this.textBoxPassword.PasswordChar = '*';
-            // 
-            // buttonSave
-            // 
-            this.buttonSave.Text = "Save";
-            this.buttonSave.Location = new Point(20, 220);
-            this.buttonSave.Width = 260;
-            this.buttonSave.BackColor = Color.FromArgb(70, 70, 70);
-            this.buttonSave.ForeColor = Color.White;
-            this.buttonSave.FlatStyle = FlatStyle.Flat;
-            this.buttonSave.Click += ButtonSave_Click;
-        }
+            panelTitleBar = new Panel();
+            labelTitle = new Label();
+            buttonClose = new Button();
+            labelUsername = new Label();
+            textBoxUsername = new TextBox();
+            labelPassword = new Label();
+            textBoxPassword = new TextBox();
+            buttonSave = new Button();
 
-        private void ApplyRoundedCorners()
-        {
-            GraphicsPath path = new GraphicsPath();
-            path.AddArc(0, 0, 20, 20, 180, 90);
-            path.AddArc(this.Width - 20, 0, 20, 20, 270, 90);
-            path.AddArc(this.Width - 20, this.Height - 20, 20, 20, 0, 90);
-            path.AddArc(0, this.Height - 20, 20, 20, 90, 90);
-            path.CloseAllFigures();
-            this.Region = new Region(path);
+            this.BackColor = Color.FromArgb(30, 30, 30);
+            this.ClientSize = new Size(300, 400);
+            this.FormBorderStyle = FormBorderStyle.None;
+            this.StartPosition = FormStartPosition.CenterScreen;
+
+            panelTitleBar.BackColor = Color.FromArgb(45, 45, 45);
+            panelTitleBar.Dock = DockStyle.Top;
+            panelTitleBar.Height = 40;
+            panelTitleBar.MouseDown += PanelTitleBar_MouseDown;
+
+            labelTitle.Text = "Admin Setup";
+            labelTitle.ForeColor = Color.White;
+            labelTitle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
+            labelTitle.Location = new Point(10, 10);
+            labelTitle.AutoSize = true;
+
+            buttonClose.Text = "X";
+            buttonClose.FlatStyle = FlatStyle.Flat;
+            buttonClose.FlatAppearance.BorderSize = 0;
+            buttonClose.Font = new Font("Segoe UI", 10);
+            buttonClose.Size = new Size(30, 30);
+            buttonClose.Location = new Point(260, 5);
+            buttonClose.ForeColor = Color.White;
+            buttonClose.BackColor = Color.Transparent;
+            buttonClose.Click += (s, e) => this.Close();
+
+            labelUsername.Text = "Username";
+            labelUsername.ForeColor = Color.White;
+            labelUsername.Location = new Point(20, 60);
+            labelUsername.AutoSize = true;
+
+            textBoxUsername.Location = new Point(20, 85);
+            textBoxUsername.Width = 260;
+            textBoxUsername.BackColor = Color.FromArgb(50, 50, 50);
+            textBoxUsername.ForeColor = Color.White;
+            textBoxUsername.BorderStyle = BorderStyle.FixedSingle;
+
+            labelPassword.Text = "Password";
+            labelPassword.ForeColor = Color.White;
+            labelPassword.Location = new Point(20, 135);
+            labelPassword.AutoSize = true;
+
+            textBoxPassword.Location = new Point(20, 160);
+            textBoxPassword.Width = 260;
+            textBoxPassword.BackColor = Color.FromArgb(50, 50, 50);
+            textBoxPassword.ForeColor = Color.White;
+            textBoxPassword.BorderStyle = BorderStyle.FixedSingle;
+            textBoxPassword.PasswordChar = '●';
+
+            buttonSave.Text = "Save";
+            buttonSave.Location = new Point(20, 230);
+            buttonSave.Width = 260;
+            buttonSave.Height = 40;
+            buttonSave.BackColor = Color.FromArgb(70, 130, 180);
+            buttonSave.ForeColor = Color.White;
+            buttonSave.FlatStyle = FlatStyle.Flat;
+            buttonSave.FlatAppearance.BorderSize = 0;
+            buttonSave.Font = new Font("Segoe UI", 10, FontStyle.Bold);
+            buttonSave.Click += ButtonSave_Click;
+
+            buttonSave.MouseEnter += (s, e) => buttonSave.BackColor = Color.FromArgb(100, 149, 237);
+            buttonSave.MouseLeave += (s, e) => buttonSave.BackColor = Color.FromArgb(70, 130, 180);
+
+            panelTitleBar.Controls.Add(labelTitle);
+            panelTitleBar.Controls.Add(buttonClose);
+
+            Controls.Add(panelTitleBar);
+            Controls.Add(labelUsername);
+            Controls.Add(textBoxUsername);
+            Controls.Add(labelPassword);
+            Controls.Add(textBoxPassword);
+            Controls.Add(buttonSave);
         }
 
         private void ButtonSave_Click(object sender, EventArgs e)
@@ -98,11 +110,39 @@ namespace CarCare
                 return;
             }
 
-            File.WriteAllText("admin.txt", $"{username}:{password}");
-            MessageBox.Show("Admin account saved successfully.");
+            Auth.SaveAdmin(username, password);
+            
+            MessageBox.Show("Admin account set up successfully.");
             this.Close();
         }
 
+        private void ApplyRoundedCorners()
+        {
+            GraphicsPath path = new GraphicsPath();
+            int radius = 20;
+            path.AddArc(0, 0, radius, radius, 180, 90);
+            path.AddArc(this.Width - radius, 0, radius, radius, 270, 90);
+            path.AddArc(this.Width - radius, this.Height - radius, radius, radius, 0, 90);
+            path.AddArc(0, this.Height - radius, radius, radius, 90, 90);
+            path.CloseAllFigures();
+            this.Region = new Region(path);
+        }
+
+        [DllImport("user32.dll")]
+        public static extern bool ReleaseCapture();
+
+        [DllImport("user32.dll")]
+        public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
+
+        private void PanelTitleBar_MouseDown(object sender, MouseEventArgs e)
+        {
+            ReleaseCapture();
+            SendMessage(this.Handle, 0x112, 0xf012, 0);
+        }
+
+        private Panel panelTitleBar;
+        private Label labelTitle;
+        private Button buttonClose;
         private Label labelUsername;
         private Label labelPassword;
         private TextBox textBoxUsername;

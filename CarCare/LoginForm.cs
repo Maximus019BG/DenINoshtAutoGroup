@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace CarCare
@@ -14,93 +15,111 @@ namespace CarCare
             ApplyRoundedCorners();
         }
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
-            labelUsername = new System.Windows.Forms.Label();
-            labelPassword = new System.Windows.Forms.Label();
-            textBoxUsername = new System.Windows.Forms.TextBox();
-            textBoxPassword = new System.Windows.Forms.TextBox();
-            buttonLogin = new System.Windows.Forms.Button();
-            SuspendLayout();
-            // 
-            // labelUsername
-            // 
+            panelTitleBar = new Panel();
+            labelTitle = new Label();
+            buttonMinimize = new Button();
+            buttonClose = new Button();
+            labelUsername = new Label();
+            textBoxUsername = new TextBox();
+            labelPassword = new Label();
+            textBoxPassword = new TextBox();
+            buttonLogin = new Button();
+
+            this.BackColor = Color.FromArgb(30, 30, 30);
+            this.ClientSize = new Size(300, 400);
+            this.FormBorderStyle = FormBorderStyle.None;
+            this.StartPosition = FormStartPosition.CenterScreen;
+
+            panelTitleBar.BackColor = Color.FromArgb(45, 45, 45);
+            panelTitleBar.Dock = DockStyle.Top;
+            panelTitleBar.Height = 40;
+            panelTitleBar.MouseDown += PanelTitleBar_MouseDown;
+
+            labelTitle.Text = "Login";
+            labelTitle.ForeColor = Color.White;
+            labelTitle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
+            labelTitle.Location = new Point(10, 10);
+            labelTitle.AutoSize = true;
+
+            buttonMinimize.Text = "–";
+            buttonMinimize.FlatStyle = FlatStyle.Flat;
+            buttonMinimize.FlatAppearance.BorderSize = 0;
+            buttonMinimize.Font = new Font("Segoe UI", 10);
+            buttonMinimize.Size = new Size(30, 30);
+            buttonMinimize.Location = new Point(230, 5);
+            buttonMinimize.ForeColor = Color.White;
+            buttonMinimize.BackColor = Color.Transparent;
+            buttonMinimize.Click += (s, e) => this.WindowState = FormWindowState.Minimized;
+
+            buttonClose.Text = "X";
+            buttonClose.FlatStyle = FlatStyle.Flat;
+            buttonClose.FlatAppearance.BorderSize = 0;
+            buttonClose.Font = new Font("Segoe UI", 10);
+            buttonClose.Size = new Size(30, 30);
+            buttonClose.Location = new Point(260, 5);
+            buttonClose.ForeColor = Color.White;
+            buttonClose.BackColor = Color.Transparent;
+            buttonClose.Click += (s, e) => this.Close();
+
+            labelUsername.Text = "Username";
+            labelUsername.ForeColor = Color.White;
+            labelUsername.Location = new Point(20, 60);
             labelUsername.AutoSize = true;
-            labelUsername.ForeColor = System.Drawing.Color.White;
-            labelUsername.Location = new System.Drawing.Point(20, 30);
-            labelUsername.Name = "labelUsername";
-            labelUsername.Size = new System.Drawing.Size(63, 15);
-            labelUsername.TabIndex = 0;
-            labelUsername.Text = "Username:";
-            // 
-            // labelPassword
-            // 
+
+            textBoxUsername.Location = new Point(20, 85);
+            textBoxUsername.Width = 260;
+            textBoxUsername.BackColor = Color.FromArgb(50, 50, 50);
+            textBoxUsername.ForeColor = Color.White;
+            textBoxUsername.BorderStyle = BorderStyle.FixedSingle;
+
+            labelPassword.Text = "Password";
+            labelPassword.ForeColor = Color.White;
+            labelPassword.Location = new Point(20, 135);
             labelPassword.AutoSize = true;
-            labelPassword.ForeColor = System.Drawing.Color.White;
-            labelPassword.Location = new System.Drawing.Point(20, 120);
-            labelPassword.Name = "labelPassword";
-            labelPassword.Size = new System.Drawing.Size(60, 15);
-            labelPassword.TabIndex = 1;
-            labelPassword.Text = "Password:";
-            // 
-            // textBoxUsername
-            // 
-            textBoxUsername.BackColor = System.Drawing.Color.FromArgb(((int)((byte)50)), ((int)((byte)50)), ((int)((byte)50)));
-            textBoxUsername.ForeColor = System.Drawing.Color.White;
-            textBoxUsername.Location = new System.Drawing.Point(20, 60);
-            textBoxUsername.Name = "textBoxUsername";
-            textBoxUsername.Size = new System.Drawing.Size(260, 23);
-            textBoxUsername.TabIndex = 2;
-            // 
-            // textBoxPassword
-            // 
-            textBoxPassword.BackColor = System.Drawing.Color.FromArgb(((int)((byte)50)), ((int)((byte)50)), ((int)((byte)50)));
-            textBoxPassword.ForeColor = System.Drawing.Color.White;
-            textBoxPassword.Location = new System.Drawing.Point(20, 150);
-            textBoxPassword.Name = "textBoxPassword";
-            textBoxPassword.PasswordChar = '*';
-            textBoxPassword.Size = new System.Drawing.Size(260, 23);
-            textBoxPassword.TabIndex = 3;
-            // 
-            // buttonLogin
-            // 
-            buttonLogin.BackColor = System.Drawing.Color.FromArgb(((int)((byte)70)), ((int)((byte)70)), ((int)((byte)70)));
-            buttonLogin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            buttonLogin.ForeColor = System.Drawing.Color.White;
-            buttonLogin.Location = new System.Drawing.Point(20, 220);
-            buttonLogin.Name = "buttonLogin";
-            buttonLogin.Size = new System.Drawing.Size(260, 23);
-            buttonLogin.TabIndex = 4;
+
+            textBoxPassword.Location = new Point(20, 160);
+            textBoxPassword.Width = 260;
+            textBoxPassword.BackColor = Color.FromArgb(50, 50, 50);
+            textBoxPassword.ForeColor = Color.White;
+            textBoxPassword.BorderStyle = BorderStyle.FixedSingle;
+            textBoxPassword.PasswordChar = '●';
+
             buttonLogin.Text = "Login";
-            buttonLogin.UseVisualStyleBackColor = false;
+            buttonLogin.Location = new Point(20, 230);
+            buttonLogin.Width = 260;
+            buttonLogin.Height = 40;
+            buttonLogin.BackColor = Color.FromArgb(70, 130, 180);
+            buttonLogin.ForeColor = Color.White;
+            buttonLogin.FlatStyle = FlatStyle.Flat;
+            buttonLogin.FlatAppearance.BorderSize = 0;
+            buttonLogin.Font = new Font("Segoe UI", 10, FontStyle.Bold);
             buttonLogin.Click += ButtonLogin_Click;
-            // 
-            // LoginForm
-            // 
-            BackColor = System.Drawing.Color.FromArgb(((int)((byte)30)), ((int)((byte)30)), ((int)((byte)30)));
-            ClientSize = new System.Drawing.Size(300, 500);
-            Controls.Add(labelUsername);
-            Controls.Add(labelPassword);
-            Controls.Add(textBoxUsername);
-            Controls.Add(textBoxPassword);
-            Controls.Add(buttonLogin);
-            FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            Text = "Login";
-            ResumeLayout(false);
-            PerformLayout();
+
+            buttonLogin.MouseEnter += (s, e) => buttonLogin.BackColor = Color.FromArgb(100, 149, 237);
+            buttonLogin.MouseLeave += (s, e) => buttonLogin.BackColor = Color.FromArgb(70, 130, 180);
+
+            panelTitleBar.Controls.Add(labelTitle);
+            panelTitleBar.Controls.Add(buttonMinimize);
+            panelTitleBar.Controls.Add(buttonClose);
+
+            this.Controls.Add(panelTitleBar);
+            this.Controls.Add(labelUsername);
+            this.Controls.Add(textBoxUsername);
+            this.Controls.Add(labelPassword);
+            this.Controls.Add(textBoxPassword);
+            this.Controls.Add(buttonLogin);
         }
 
         private void ApplyRoundedCorners()
         {
             GraphicsPath path = new GraphicsPath();
-            path.AddArc(0, 0, 20, 20, 180, 90);
-            path.AddArc(this.Width - 20, 0, 20, 20, 270, 90);
-            path.AddArc(this.Width - 20, this.Height - 20, 20, 20, 0, 90);
-            path.AddArc(0, this.Height - 20, 20, 20, 90, 90);
+            int radius = 20;
+            path.AddArc(0, 0, radius, radius, 180, 90);
+            path.AddArc(this.Width - radius, 0, radius, radius, 270, 90);
+            path.AddArc(this.Width - radius, this.Height - radius, radius, radius, 0, 90);
+            path.AddArc(0, this.Height - radius, radius, radius, 90, 90);
             path.CloseAllFigures();
             this.Region = new Region(path);
         }
@@ -110,17 +129,12 @@ namespace CarCare
             string username = textBoxUsername.Text;
             string password = textBoxPassword.Text;
 
-            if (!File.Exists("admin.txt"))
-            {
-                MessageBox.Show("Admin account not set up.");
-                return;
-            }
-
-            string[] credentials = File.ReadAllText("admin.txt").Split(':');
-            if (credentials.Length == 2 && credentials[0] == username && credentials[1] == password)
+            if (Auth.ValidateLogin(username, password))
             {
                 MessageBox.Show("Login successful.");
-                // Proceed to the next page or functionality
+                // You can open main app/dashboard here
+                this.Hide();
+                // new DashboardForm().Show();
             }
             else
             {
@@ -128,6 +142,22 @@ namespace CarCare
             }
         }
 
+        [DllImport("user32.dll")]
+        public static extern bool ReleaseCapture();
+
+        [DllImport("user32.dll")]
+        public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
+
+        private void PanelTitleBar_MouseDown(object sender, MouseEventArgs e)
+        {
+            ReleaseCapture();
+            SendMessage(this.Handle, 0x112, 0xf012, 0);
+        }
+
+        private Panel panelTitleBar;
+        private Label labelTitle;
+        private Button buttonMinimize;
+        private Button buttonClose;
         private Label labelUsername;
         private Label labelPassword;
         private TextBox textBoxUsername;
