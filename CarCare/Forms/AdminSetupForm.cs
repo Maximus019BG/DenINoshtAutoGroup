@@ -1,15 +1,11 @@
-﻿using System;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.IO;
+﻿using System.Drawing.Drawing2D;
 using System.Runtime.InteropServices;
-using System.Windows.Forms;
 
-namespace CarCare
+namespace CarCare.Forms
 {
-    public partial class LoginForm : Form
+    public partial class AdminSetupForm : Form
     {
-        public LoginForm()
+        public AdminSetupForm()
         {
             InitializeComponent();
             ApplyRoundedCorners();
@@ -19,13 +15,12 @@ namespace CarCare
         {
             panelTitleBar = new Panel();
             labelTitle = new Label();
-            buttonMinimize = new Button();
             buttonClose = new Button();
             labelUsername = new Label();
             textBoxUsername = new TextBox();
             labelPassword = new Label();
             textBoxPassword = new TextBox();
-            buttonLogin = new Button();
+            buttonSave = new Button();
 
             this.BackColor = Color.FromArgb(30, 30, 30);
             this.ClientSize = new Size(300, 400);
@@ -37,21 +32,11 @@ namespace CarCare
             panelTitleBar.Height = 40;
             panelTitleBar.MouseDown += PanelTitleBar_MouseDown;
 
-            labelTitle.Text = "Login";
+            labelTitle.Text = "Admin Setup";
             labelTitle.ForeColor = Color.White;
             labelTitle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
             labelTitle.Location = new Point(10, 10);
             labelTitle.AutoSize = true;
-
-            buttonMinimize.Text = "–";
-            buttonMinimize.FlatStyle = FlatStyle.Flat;
-            buttonMinimize.FlatAppearance.BorderSize = 0;
-            buttonMinimize.Font = new Font("Segoe UI", 10);
-            buttonMinimize.Size = new Size(30, 30);
-            buttonMinimize.Location = new Point(230, 5);
-            buttonMinimize.ForeColor = Color.White;
-            buttonMinimize.BackColor = Color.Transparent;
-            buttonMinimize.Click += (s, e) => this.WindowState = FormWindowState.Minimized;
 
             buttonClose.Text = "X";
             buttonClose.FlatStyle = FlatStyle.Flat;
@@ -86,30 +71,46 @@ namespace CarCare
             textBoxPassword.BorderStyle = BorderStyle.FixedSingle;
             textBoxPassword.PasswordChar = '●';
 
-            buttonLogin.Text = "Login";
-            buttonLogin.Location = new Point(20, 230);
-            buttonLogin.Width = 260;
-            buttonLogin.Height = 40;
-            buttonLogin.BackColor = Color.FromArgb(70, 130, 180);
-            buttonLogin.ForeColor = Color.White;
-            buttonLogin.FlatStyle = FlatStyle.Flat;
-            buttonLogin.FlatAppearance.BorderSize = 0;
-            buttonLogin.Font = new Font("Segoe UI", 10, FontStyle.Bold);
-            buttonLogin.Click += ButtonLogin_Click;
+            buttonSave.Text = "Save";
+            buttonSave.Location = new Point(20, 230);
+            buttonSave.Width = 260;
+            buttonSave.Height = 40;
+            buttonSave.BackColor = Color.FromArgb(70, 130, 180);
+            buttonSave.ForeColor = Color.White;
+            buttonSave.FlatStyle = FlatStyle.Flat;
+            buttonSave.FlatAppearance.BorderSize = 0;
+            buttonSave.Font = new Font("Segoe UI", 10, FontStyle.Bold);
+            buttonSave.Click += ButtonSave_Click;
 
-            buttonLogin.MouseEnter += (s, e) => buttonLogin.BackColor = Color.FromArgb(100, 149, 237);
-            buttonLogin.MouseLeave += (s, e) => buttonLogin.BackColor = Color.FromArgb(70, 130, 180);
+            buttonSave.MouseEnter += (s, e) => buttonSave.BackColor = Color.FromArgb(100, 149, 237);
+            buttonSave.MouseLeave += (s, e) => buttonSave.BackColor = Color.FromArgb(70, 130, 180);
 
             panelTitleBar.Controls.Add(labelTitle);
-            panelTitleBar.Controls.Add(buttonMinimize);
             panelTitleBar.Controls.Add(buttonClose);
 
-            this.Controls.Add(panelTitleBar);
-            this.Controls.Add(labelUsername);
-            this.Controls.Add(textBoxUsername);
-            this.Controls.Add(labelPassword);
-            this.Controls.Add(textBoxPassword);
-            this.Controls.Add(buttonLogin);
+            Controls.Add(panelTitleBar);
+            Controls.Add(labelUsername);
+            Controls.Add(textBoxUsername);
+            Controls.Add(labelPassword);
+            Controls.Add(textBoxPassword);
+            Controls.Add(buttonSave);
+        }
+
+        private void ButtonSave_Click(object sender, EventArgs e)
+        {
+            string username = textBoxUsername.Text;
+            string password = textBoxPassword.Text;
+
+            if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
+            {
+                MessageBox.Show("Username and password cannot be empty.");
+                return;
+            }
+
+            Auth.SaveAdmin(username, password);
+            
+            MessageBox.Show("Admin account set up successfully.");
+            this.Close();
         }
 
         private void ApplyRoundedCorners()
@@ -122,24 +123,6 @@ namespace CarCare
             path.AddArc(0, this.Height - radius, radius, radius, 90, 90);
             path.CloseAllFigures();
             this.Region = new Region(path);
-        }
-
-        private void ButtonLogin_Click(object sender, EventArgs e)
-        {
-            string username = textBoxUsername.Text;
-            string password = textBoxPassword.Text;
-
-            if (Auth.ValidateLogin(username, password))
-            {
-                MessageBox.Show("Login successful.");
-                // You can open main app/dashboard here
-                this.Hide();
-                // new DashboardForm().Show();
-            }
-            else
-            {
-                MessageBox.Show("Invalid username or password.");
-            }
         }
 
         [DllImport("user32.dll")]
@@ -156,12 +139,11 @@ namespace CarCare
 
         private Panel panelTitleBar;
         private Label labelTitle;
-        private Button buttonMinimize;
         private Button buttonClose;
         private Label labelUsername;
         private Label labelPassword;
         private TextBox textBoxUsername;
         private TextBox textBoxPassword;
-        private Button buttonLogin;
+        private Button buttonSave;
     }
 }
