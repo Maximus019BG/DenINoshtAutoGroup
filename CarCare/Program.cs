@@ -9,6 +9,11 @@ static class Program
     static void Main()
     {
         ApplicationConfiguration.Initialize();
-        Application.Run(new Form1());
+        Application.SetCompatibleTextRenderingDefault(false);
+        // Show Admin Setup Form
+        Application.Run(new AdminSetupForm());
+
+        // Show Login Form
+        Application.Run(new LoginForm());
     }
 }
