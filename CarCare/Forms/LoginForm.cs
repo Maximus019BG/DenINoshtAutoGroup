@@ -132,9 +132,9 @@ namespace CarCare
             if (Auth.ValidateLogin(username, password))
             {
                 MessageBox.Show("Login successful.");
-                // You can open main app/dashboard here
+                //Redirect to dashboard
                 this.Hide();
-                // new DashboardForm().Show();
+                new DashboardForm().Show();
             }
             else
             {
