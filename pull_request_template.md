@@ -14,4 +14,3 @@ Please include a summary of the changes and the related issue. Please also inclu
 - [ ] I have performed a self-review of my code
 - [ ] I have tested my code
 - [ ] I have followed the guidelines in our [Contributing document](https://github.com/Maximus019BG/DenINoshtAutoGroup/blob/dev/CONTRIBUTING.md)
-
