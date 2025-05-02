@@ -56,6 +56,10 @@ nunit-*.xml
 #Editor
 # Visual Studio Code
 .vscode/
+.vs
+.vs/
+vs
+vs/
 .vscode-test/
 # Rider
 .idea/
