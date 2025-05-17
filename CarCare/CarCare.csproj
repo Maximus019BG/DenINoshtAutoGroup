@@ -13,6 +13,16 @@
       <Content Include="Resources\logo.png">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Content>
+      <Content Update="Resources\logo.ico">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Resources\logo.ico" />
+      <Content Include="Resources\logo.ico">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
     </ItemGroup>
 
 </Project>
