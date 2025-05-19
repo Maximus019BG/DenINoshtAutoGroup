@@ -22,8 +22,7 @@ namespace CarCare
             loadingForm.Refresh();
             Thread.Sleep(2000); // Show loading form for 2 
             loadingForm.Close();
-
-
+            
             Application.Run(new LoginForm());
         }
     }
