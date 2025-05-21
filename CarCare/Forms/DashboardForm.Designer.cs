@@ -16,6 +16,8 @@
         private TextBox txtSearch;
         private Button btnSearch;
         private Label labelResults;
+        private ComboBox comboSortType;
+        private Button btnSort;
 
         protected override void Dispose(bool disposing)
         {
@@ -156,6 +158,33 @@
             labelResults.BackColor = Color.FromArgb(45, 45, 45);
             labelResults.Location = new Point(20, 505);
             labelResults.Size = new Size(200, 15);
+    
+            comboSortType = new ComboBox();
+            comboSortType.Location = new Point(580, 505);
+            comboSortType.Size = new Size(120, 25);
+            comboSortType.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboSortType.BackColor = Color.FromArgb(45, 45, 45);
+            comboSortType.ForeColor = Color.White;
+            comboSortType.FlatStyle = FlatStyle.Flat;
+            comboSortType.Items.AddRange(Enum.GetNames(typeof(SortType)));
+            comboSortType.SelectedIndex = 0;
+
+            // Sort Button
+            btnSort = new Button();
+            btnSort.Text = "Sort A-Z";
+            btnSort.Location = new Point(705, 505);
+            btnSort.Size = new Size(75, 25);
+            btnSort.BackColor = Color.FromArgb(45, 45, 45);
+            btnSort.ForeColor = Color.White;
+            btnSort.FlatStyle = FlatStyle.Flat;
+            btnSort.FlatAppearance.BorderColor = Color.FromArgb(30, 30, 30);
+            btnSort.Click += BtnSort_Click;
+
+            // Add to Controls
+            this.Controls.Add(comboSortType);
+            this.Controls.Add(btnSort);
+
+
 
             // Form
             this.BackColor = Color.FromArgb(30, 30, 30);

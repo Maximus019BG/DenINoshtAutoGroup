@@ -103,9 +103,12 @@ namespace CarCare
 
         private void LoadTableData()
         {
-            LoadOrdersFromFile();
-            QuickSort(currentRepairs, 0, currentRepairs.Count - 1);
-
+            LoadOrdersFromFile(); // load original data
+            DisplayTableData();   // populate UI
+        }
+        
+        private void DisplayTableData()
+        {
             DataTable table = new DataTable();
             table.Columns.Add("Reg. Number");
             table.Columns.Add("Brand");
@@ -126,6 +129,7 @@ namespace CarCare
             labelResults.Text = $"Results: {table.Rows.Count}";
         }
 
+        
         private void BtnAddCar_Click(object sender, EventArgs e)
         {
             using (var form = new AddCarForm())
@@ -258,6 +262,59 @@ namespace CarCare
         {
             ReleaseCapture();
             SendMessage(this.Handle, 0x112, 0xf012, 0);
+        }
+        
+        private void BtnSort_Click(object sender, EventArgs e)
+        {
+            if (comboSortType.SelectedItem == null) return;
+
+            if (Enum.TryParse(comboSortType.SelectedItem.ToString(), out SortType selectedSort))
+            {
+                SortCurrentRepairs(selectedSort);
+                DisplayTableData(); // ✅ now shows sorted list
+            }
+        }
+
+        private void SortCurrentRepairs(SortType sortType)
+        {
+            currentRepairs = MergeSort(currentRepairs, sortType);
+        }
+
+        private List<Car> MergeSort(List<Car> list, SortType sortType)
+        {
+            if (list.Count <= 1) return list;
+
+            int mid = list.Count / 2;
+            var left = MergeSort(list.GetRange(0, mid), sortType);
+            var right = MergeSort(list.GetRange(mid, list.Count - mid), sortType);
+
+            return Merge(left, right, sortType);
+        }
+
+        private List<Car> Merge(List<Car> left, List<Car> right, SortType sortType)
+        {
+            List<Car> result = new List<Car>();
+            int i = 0, j = 0;
+
+            while (i < left.Count && j < right.Count)
+            {
+                bool condition = sortType switch
+                {
+                    SortType.RegistrationNumber => string.Compare(left[i].RegistrationNumber, right[j].RegistrationNumber) <= 0,
+                    SortType.Brand => string.Compare(left[i].Brand, right[j].Brand) <= 0,
+                    SortType.Model => string.Compare(left[i].Model, right[j].Model) <= 0,
+                    SortType.Problem => string.Compare(left[i].Problem, right[j].Problem) <= 0,
+                    SortType.EntryDate => left[i].EntryDate <= right[j].EntryDate,
+                    _ => true
+                };
+
+                result.Add(condition ? left[i++] : right[j++]);
+            }
+
+            while (i < left.Count) result.Add(left[i++]);
+            while (j < right.Count) result.Add(right[j++]);
+
+            return result;
         }
     }
 }
