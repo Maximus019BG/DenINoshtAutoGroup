@@ -78,13 +78,19 @@
             panelTitleBar.Controls.Add(buttonClose);
 
             // DataGridView
-            dataGridView.Location = new Point(20, 60);
+        dataGridView.Location = new Point(20, 60);
             dataGridView.Size = new Size(760, 400);
-            dataGridView.BackgroundColor = Color.FromArgb(50, 50, 50);
-            dataGridView.GridColor = Color.Gray;
-            dataGridView.ForeColor = Color.Black;
-            dataGridView.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(70, 130, 180);
-            dataGridView.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dataGridView.BackgroundColor = Color.FromArgb(30, 30, 30); // Dark background
+            dataGridView.GridColor = Color.FromArgb(50, 50, 50); // Darker grid lines
+            dataGridView.ForeColor = Color.White; // White text
+            dataGridView.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(45, 45, 45); // Dark header background
+            dataGridView.ColumnHeadersDefaultCellStyle.ForeColor = Color.White; // White header text
+            dataGridView.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.FromArgb(70, 70, 70); // Header selection background
+            dataGridView.ColumnHeadersDefaultCellStyle.SelectionForeColor = Color.White; // Header selection text
+            dataGridView.DefaultCellStyle.BackColor = Color.FromArgb(40, 40, 40); // Dark cell background
+            dataGridView.DefaultCellStyle.ForeColor = Color.White; // White cell text
+            dataGridView.DefaultCellStyle.SelectionBackColor = Color.FromArgb(70, 70, 70); // Cell selection background
+            dataGridView.DefaultCellStyle.SelectionForeColor = Color.White; // Cell selection text
             dataGridView.EnableHeadersVisualStyles = false;
             dataGridView.RowHeadersVisible = false;
             dataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;

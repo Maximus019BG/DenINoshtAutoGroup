@@ -90,15 +90,15 @@ namespace CarCare
             buttonLogin.Location = new Point(20, 230);
             buttonLogin.Width = 260;
             buttonLogin.Height = 40;
-            buttonLogin.BackColor = Color.FromArgb(70, 130, 180);
+            buttonLogin.BackColor = Color.FromArgb(180, 30, 30);
             buttonLogin.ForeColor = Color.White;
             buttonLogin.FlatStyle = FlatStyle.Flat;
             buttonLogin.FlatAppearance.BorderSize = 0;
             buttonLogin.Font = new Font("Segoe UI", 10, FontStyle.Bold);
             buttonLogin.Click += ButtonLogin_Click;
 
-            buttonLogin.MouseEnter += (s, e) => buttonLogin.BackColor = Color.FromArgb(100, 149, 237);
-            buttonLogin.MouseLeave += (s, e) => buttonLogin.BackColor = Color.FromArgb(70, 130, 180);
+            buttonLogin.MouseEnter += (s, e) => buttonLogin.BackColor = Color.FromArgb(180, 30, 10);
+            buttonLogin.MouseLeave += (s, e) => buttonLogin.BackColor = Color.FromArgb(180, 30, 10);
 
             panelTitleBar.Controls.Add(labelTitle);
             panelTitleBar.Controls.Add(buttonMinimize);

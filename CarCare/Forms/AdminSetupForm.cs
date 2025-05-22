@@ -75,15 +75,15 @@ namespace CarCare.Forms
             buttonSave.Location = new Point(20, 230);
             buttonSave.Width = 260;
             buttonSave.Height = 40;
-            buttonSave.BackColor = Color.FromArgb(70, 130, 180);
+            buttonSave.BackColor = Color.FromArgb(180, 30, 30);
             buttonSave.ForeColor = Color.White;
             buttonSave.FlatStyle = FlatStyle.Flat;
             buttonSave.FlatAppearance.BorderSize = 0;
             buttonSave.Font = new Font("Segoe UI", 10, FontStyle.Bold);
             buttonSave.Click += ButtonSave_Click;
 
-            buttonSave.MouseEnter += (s, e) => buttonSave.BackColor = Color.FromArgb(100, 149, 237);
-            buttonSave.MouseLeave += (s, e) => buttonSave.BackColor = Color.FromArgb(70, 130, 180);
+            buttonSave.MouseEnter += (s, e) => buttonSave.BackColor = Color.FromArgb(180, 30, 10);
+            buttonSave.MouseLeave += (s, e) => buttonSave.BackColor = Color.FromArgb(180, 30, 30);
 
             panelTitleBar.Controls.Add(labelTitle);
             panelTitleBar.Controls.Add(buttonClose);
